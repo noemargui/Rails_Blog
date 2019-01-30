@@ -6,13 +6,31 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(first_name: "Jane", last_name: "Birkin", email:"jane@jane.jane")
-User.create(first_name: "Marc", last_name: "Laurent", email:"mars@mars.mars")
-User.create(first_name: "Leon", last_name: "Legrand", email:"leon@leon.leon")
-User.create(first_name: "Miel", last_name: "Gibson", email:"miel@miel.miel")
-User.create(first_name: "Jack", last_name: "Luck", email:"jack@jack.jack")
-User.create(first_name: "Rob", last_name: "Iwill", email:"rob@rob.rob")
+require 'faker' #la gem permettant le remplissage automatique
 
-4.times do |index|
-  user = User.create!(first_name: "Prenom#{index}", last_name: "Famille#{index}", email: "email#{index}@email.com")
+# Permettent de clear toutes les entrées dans la database
+User.destroy_all 
+Article.destroy_all
+Category.destroy_all
+Comment.destroy_all
+Like.destroy_all
+
+# Création des 10 utilisateurs
+10.times do
+  user = User.create(first_name: Faker::GreekPhilosophers.unique.name, last_name: Faker::Color.unique.color_name,  email: Faker::Internet.unique.email)
+end
+
+# Création des 10 articles
+10.times do
+  article = Article.create(title: Faker::HarryPotter.unique.book, content: Faker::GreekPhilosophers.quote, user: User.all[rand(10)], category: Category.all[rand(5)])
+end
+
+# Création des 5 catégories
+5.times do
+  category = Category.create(name: Faker::Dessert.unique.flavor)
+end
+
+# Création des 15 commentaires
+15.times do 
+  comment = Comment.create(content: Faker::SiliconValley.unique.quote, user: User.all[rand(10)], article: Article.all[rand(10)])
 end
