@@ -8,18 +8,28 @@
 
 require 'faker'
 
+# Permettent de clear toutes les entrées dans la database
+User.destroy_all
+Link.destroy_all
+Comment.destroy_all
+Incomment.destroy_all
+
+# Création de 10 utilisateurs
 10.times do |user|
 	User.create!(name: Faker::Name.unique.first_name)
 end
 
+# Création de 10 liens
 10.times do |link|
-	Link.create!(url: Faker::Internet.unique.url, user_id: (rand(User.first.id ..User.last.id)))
+	Link.create!(content: Faker::Internet.unique.url, user_id: (rand(User.first.id ..User.last.id)))
 end
 
+# Création de 20 commentaires
 20.times do |comment|
 	Comment.create!(content: Faker::GreekPhilosophers.unique.quote, link_id: (rand(Link.first.id ..Link.last.id)), user_id: (rand(User.first.id ..User.last.id)))
 end
 
+# Création de 40 sous-commentaires
 40.times do |incomment|
-	InComment.create!(content: Faker::ChuckNorris.unique.fact, comment_id: (rand(Comment.first.id ..Comment.last.id)), user_id: (rand(User.first.id ..User.last.id)))
+	Incomment.create!(content: Faker::ChuckNorris.unique.fact, comment_id: (rand(Comment.first.id ..Comment.last.id)), user_id: (rand(User.first.id ..User.last.id)))
 end

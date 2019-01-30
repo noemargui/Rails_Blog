@@ -8,10 +8,16 @@
 
 require 'faker'
 
+# Permettent de clear toutes les entrées dans la database
+Course.destroy_all
+Lesson.destroy_all
+
+# Création de 5 cours
 5.times do |course|
 	Course.create(title: Faker::Ancient.unique.primordial, description: Faker::BackToTheFuture.unique.quote)
 end
 
+# Création des 20 leçons
 20.times do |lesson|
 	Lesson.create(title: Faker::Artist.unique.name, body: Faker::DumbAndDumber.unique.quote, course_id: (rand(Course.first.id..Course.last.id)))
 end
