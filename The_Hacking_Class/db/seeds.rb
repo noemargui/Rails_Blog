@@ -9,15 +9,15 @@
 require 'faker'
 
 # Permettent de clear toutes les entrées dans la database
-Student.destroy_all
 Lesson.destroy_all
-
-# Création de 10 étudiants
-10.times do |student|
-	Student.create!(name: Faker::Name.unique.first_name, lesson_id: (rand(Lesson.first.id..Lesson.last.id)))
-end
+Student.destroy_all
 
 # Création de 10 cours
 10.times do |lesson|
 	Lesson.create!(title: Faker::Hipster.unique.sentence)
+end
+
+# Création de 10 étudiants
+10.times do |student|
+	Student.create!(name: Faker::Name.unique.first_name, lesson_id: (rand(Lesson.first.id..Lesson.last.id)))
 end
