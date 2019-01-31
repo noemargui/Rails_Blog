@@ -25,5 +25,5 @@ end
 
 # Création de 40 commentaires
 40.times do |comment|
-	Comment.create(content: Faker::GreekPhilosophers.unique.quote, pin_id: (rand(Pin.first.id..Pin.last.id)), user_id: (rand(User.first.id..User.last.id)))
+	Comment.create(content: Faker::GreekPhilosophers.quote, pin_id: (rand(Pin.first.id..Pin.last.id)), user_id: (rand(User.first.id..User.last.id)))
 end
